@@ -1,6 +1,7 @@
 package application.backend.services;
 
 import org.springframework.mail.SimpleMailMessage;
+
 import application.web.domain.FeedbackPojo;
 
 public interface EmailService {

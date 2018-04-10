@@ -3,7 +3,6 @@ package application.backend.services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.stereotype.Service;
 
 
 public class MockEmailService extends AbstractEmailService {
