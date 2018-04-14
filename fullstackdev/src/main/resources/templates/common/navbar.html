@@ -21,6 +21,12 @@
             </ul>
             
             <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a th:href="@{/login}" th:text="#{navbar.login.text}" />
+                    </li>
+                </ul>
+                
+            <!-- <ul class="nav navbar-nav navbar-right">
                     <li th:if="${#authorization.expression('!isAuthenticated()')}">
                         <a th:href="@{/login}" th:text="#{navbar.login.text}" />
                     </li>
@@ -29,7 +35,7 @@
                             <button type="submit" th:text="#{navbar.logout.text}" class="btn btn-primary" />
                         </form>
                     </li>
-                </ul>
+                </ul> -->
         </div><!--/.nav-collapse -->
     </div>
 </div>

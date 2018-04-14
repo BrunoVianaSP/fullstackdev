@@ -8,3 +8,8 @@ function main() {
 		$collapse.collapse('toggle');
 	});
 }
+
+
+//function isAuthenticated() {
+//	return true;
+//}
