@@ -32,6 +32,9 @@ import javax.servlet.http.HttpServletResponse;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+	@Autowired
+    private Environment env;
+	
     /** Public URLs. */
     private static final String[] PUBLIC_MATCHERS = {
             "/webjars/**",
@@ -42,11 +45,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/about/**",
             "/contact/**",
             "/error/**/*",
+            "/console/**",
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        
+    	List<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+        if (activeProfiles.contains("dev")) {
+            http.csrf().disable();
+            http.headers().frameOptions().disable();
+        }
+        
+    	http.authorizeRequests()
                 .antMatchers(PUBLIC_MATCHERS).permitAll()
                 .anyRequest().authenticated()
                 .and()

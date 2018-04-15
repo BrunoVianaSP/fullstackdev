@@ -5,63 +5,59 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import application.enums.PlansEnum;
+
 
 @Entity
 public class Plan implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	private int id;
-	
-	private String name;
-	
+    /** The Serial Version UID for Serializable classes. */
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    private int id;
+
+    private String name;
+
+    /** Default constructor. */
     public Plan() {
-		// TODO Auto-generated constructor stub
-	}
 
-	public int getId() {
-		return id;
-	}
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public Plan(PlansEnum plansEnum) {
+        this.id = plansEnum.getId();
+        this.name = plansEnum.getPlanName();
+    }
 
-	public String getName() {
-		return name;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+    public String getName() {
+        return name;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Plan other = (Plan) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	
-    
-    
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Plan plan = (Plan) o;
+
+        return id == plan.id;
+
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
+    }
 }
