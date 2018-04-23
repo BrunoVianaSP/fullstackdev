@@ -1,5 +1,11 @@
 package application.backend.services;
 
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import application.backend.persistence.domain.backend.Plan;
@@ -10,14 +16,12 @@ import application.backend.persistence.repositories.RoleRepository;
 import application.backend.persistence.repositories.UserRepository;
 import application.enums.PlansEnum;
 
-import java.util.Set;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 @Service
-@Transactional(readOnly = true)
+//@Transactional(readOnly = true)
 public class UserService {
+
+	
+	private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
     private RoleRepository roleRepository;
@@ -28,7 +32,7 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Transactional
+//    @Transactional
     public User createUser(User user, PlansEnum plansEnum, Set<UserRole> userRoles) {
 
         Plan plan = savePlan(plansEnum);
@@ -41,6 +45,8 @@ public class UserService {
 
         user = userRepository.save(user);
 
+        log.debug("Saved User: " + user);
+        log.debug("Users {}", userRepository.count());
         return user;
 
     }

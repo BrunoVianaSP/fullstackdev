@@ -27,6 +27,7 @@ public class UserServiceIntegrationTest {
     @Autowired
     private UserService userService;
 
+
     @Test
     public void testCreateNewUser() throws Exception {
 

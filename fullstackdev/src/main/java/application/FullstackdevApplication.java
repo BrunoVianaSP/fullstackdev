@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import application.backend.persistence.domain.backend.Role;
 import application.backend.persistence.domain.backend.User;
@@ -34,11 +33,11 @@ public class FullstackdevApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-//		User user = UsersUtils.createBasicUser();
-//		Set<UserRole> userRoles = new HashSet<>();
-//		userRoles.add(new UserRole(user, new Role(RolesEnum.BASIC)));
-//		LOG.debug("Creating user with username {}", user.getUsername());
-//		userService.createUser(user, PlansEnum.PRO, userRoles);
-//		LOG.info("User {} created", user.getUsername());
+		User user = UsersUtils.createBasicUser();
+		Set<UserRole> userRoles = new HashSet<>();
+		userRoles.add(new UserRole(user, new Role(RolesEnum.BASIC)));
+		LOG.debug("Creating user with username {}", user.getUsername());
+		userService.createUser(user, PlansEnum.PRO, userRoles);
+		LOG.info("User {} created", user.getUsername());
 	}
 }
