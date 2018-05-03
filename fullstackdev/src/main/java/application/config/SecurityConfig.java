@@ -44,6 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/",
             "/about/**",
             "/contact/**",
+            "/team/**",
+            "/match/**",
             "/error/**/*",
             "/console/**"
     };
