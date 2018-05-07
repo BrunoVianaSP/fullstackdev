@@ -26,7 +26,7 @@ import application.backend.persistence.repositories.RoleRepository;
 import application.backend.persistence.repositories.UserRepository;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
-import application.utils.UsersUtils;
+import application.utils.UserUtils;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
@@ -113,7 +113,7 @@ public class RepositoriesIntegrationTest {
         Plan basicPlan = createPlan(PlansEnum.BASIC);
         planRepository.save(basicPlan);
 
-        User basicUser = UsersUtils.createBasicUser(userName, email);
+        User basicUser = UserUtils.createBasicUser(userName, email);
         basicUser.setPlan(basicPlan);
 
         Role basicRole = createRole(RolesEnum.BASIC);

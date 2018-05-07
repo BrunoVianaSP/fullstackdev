@@ -39,19 +39,6 @@ public class UserService {
 //    @Transactional
     public User createUser(User user, PlansEnum plansEnum, Set<UserRole> userRoles) {
 
-//        Plan plan = savePlan(plansEnum);
-//
-//        user.setPlan(plan);
-//
-//        saveUserRoles(userRoles);
-//
-//        user.getUserRoles().addAll(userRoles);
-//
-//        user = userRepository.save(user);
-//
-//        log.debug("Saved User: " + user);
-//        log.debug("Users {}", userRepository.count());
-//        return user;
     	String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
 
@@ -90,4 +77,11 @@ public class UserService {
         }
 		return plan;
 	}
+	
+	@Transactional
+    public void updateUserPassword(long userId, String password) {
+        password = passwordEncoder.encode(password);
+        userRepository.updateUserPassword(userId, password);
+        log.debug("Password updated successfully for user id {} ", userId);
+    }
 }

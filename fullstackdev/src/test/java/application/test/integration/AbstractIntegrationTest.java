@@ -15,7 +15,7 @@ import application.backend.persistence.repositories.RoleRepository;
 import application.backend.persistence.repositories.UserRepository;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
-import application.utils.UsersUtils;
+import application.utils.UserUtils;
 
 public abstract class AbstractIntegrationTest {
 
@@ -40,7 +40,7 @@ public abstract class AbstractIntegrationTest {
         Plan basicPlan = createPlan(PlansEnum.BASIC);
         planRepository.save(basicPlan);
 
-        User basicUser = UsersUtils.createBasicUser(username, email);
+        User basicUser = UserUtils.createBasicUser(username, email);
         basicUser.setPlan(basicPlan);
 
         Role basicRole = createRole(RolesEnum.BASIC);

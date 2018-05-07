@@ -17,7 +17,7 @@ import application.backend.persistence.domain.backend.UserRole;
 import application.backend.services.UserService;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
-import application.utils.UsersUtils;
+import application.utils.UserUtils;
 
 @SpringBootApplication
 public class FullstackdevApplication implements CommandLineRunner {
@@ -46,7 +46,7 @@ public class FullstackdevApplication implements CommandLineRunner {
 //		String userName = "proUser"; 
 //		String email = "proUser@email.com";
 		
-		User user = UsersUtils.createBasicUser(webmasterUsername, webmasterPassword);
+		User user = UserUtils.createBasicUser(webmasterUsername, webmasterPassword);
 		user.setPassword(webmasterPassword);
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, new Role(RolesEnum.ADMIN)));
