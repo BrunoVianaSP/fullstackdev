@@ -1,10 +1,5 @@
 package application.test.integration;
 
-import application.FullstackdevApplication;
-import application.backend.persistence.domain.backend.PasswordResetToken;
-import application.backend.persistence.domain.backend.User;
-import application.backend.services.PasswordResetTokenService;
-import application.backend.services.UserService;
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -13,6 +8,11 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import application.FullstackdevApplication;
+import application.backend.persistence.domain.backend.PasswordResetToken;
+import application.backend.persistence.domain.backend.User;
+import application.backend.services.PasswordResetTokenService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = FullstackdevApplication.class)

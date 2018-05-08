@@ -1,30 +1,25 @@
 package application.test.integration;
 
-import application.FullstackdevApplication;
-import application.backend.persistence.domain.backend.Plan;
-import application.backend.persistence.domain.backend.Role;
-import application.backend.persistence.domain.backend.User;
-import application.backend.persistence.domain.backend.UserRole;
-import application.backend.persistence.repositories.PlanRepository;
-import application.backend.persistence.repositories.RoleRepository;
-import application.backend.persistence.repositories.UserRepository;
-import application.enums.PlansEnum;
-import application.enums.RolesEnum;
-import application.utils.UserUtils;
+import java.util.Optional;
+import java.util.Set;
+import java.util.UUID;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
-import java.util.UUID;
+import application.FullstackdevApplication;
+import application.backend.persistence.domain.backend.Plan;
+import application.backend.persistence.domain.backend.Role;
+import application.backend.persistence.domain.backend.User;
+import application.backend.persistence.domain.backend.UserRole;
+import application.enums.PlansEnum;
+import application.enums.RolesEnum;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = FullstackdevApplication.class)
