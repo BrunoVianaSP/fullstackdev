@@ -1,5 +1,11 @@
 package application.test.integration;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.rules.TestName;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import application.backend.persistence.domain.backend.Role;
 import application.backend.persistence.domain.backend.User;
 import application.backend.persistence.domain.backend.UserRole;
@@ -7,11 +13,6 @@ import application.backend.services.UserService;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
 import application.utils.UserUtils;
-import org.junit.rules.TestName;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public abstract class AbstractServiceIntegrationTest {
     

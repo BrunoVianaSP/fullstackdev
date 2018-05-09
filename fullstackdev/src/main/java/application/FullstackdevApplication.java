@@ -48,6 +48,7 @@ public class FullstackdevApplication implements CommandLineRunner {
 		
 		User user = UserUtils.createBasicUser(webmasterUsername, webmasterPassword);
 		user.setPassword(webmasterPassword);
+		user.setEmail(webmasterEmail);
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, new Role(RolesEnum.ADMIN)));
 		LOG.debug("Creating user with username {}", user.getUsername());

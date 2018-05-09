@@ -1,9 +1,9 @@
 package application.backend.services;
 
-import application.backend.persistence.domain.backend.PasswordResetToken;
-import application.backend.persistence.domain.backend.User;
-import application.backend.persistence.repositories.PasswordResetTokenRepository;
-import application.backend.persistence.repositories.UserRepository;
+import java.time.Clock;
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +11,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Clock;
-import java.time.LocalDateTime;
-import java.util.UUID;
+import application.backend.persistence.domain.backend.PasswordResetToken;
+import application.backend.persistence.domain.backend.User;
+import application.backend.persistence.repositories.PasswordResetTokenRepository;
+import application.backend.persistence.repositories.UserRepository;
 
 
 @Service

@@ -1,4 +1,4 @@
-package application.web.i18n;
+package application.backend.services;
 
 import java.util.Locale;
 
@@ -23,7 +23,7 @@ public class I18nService {
 		return getMessage(messageId, locale);
 	}
 
-	private String getMessage(String messageId, Locale locale) {
+	public String getMessage(String messageId, Locale locale) {
 		return messageSource.getMessage(messageId, null, locale);
 	}
 }
