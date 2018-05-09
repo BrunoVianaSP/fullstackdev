@@ -97,7 +97,8 @@ public class User implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
+    @Override
+	public String getUsername() {
         return username;
     }
 
@@ -171,7 +172,8 @@ public class User implements Serializable, UserDetails {
         this.stripeCustomerId = stripeCustomerId;
     }
 
-    public boolean isEnabled() {
+    @Override
+	public boolean isEnabled() {
         return enabled;
     }
 
@@ -201,7 +203,8 @@ public class User implements Serializable, UserDetails {
         return authorities;
     }
 
-    public String getPassword() {
+    @Override
+	public String getPassword() {
         return password;
     }
 
