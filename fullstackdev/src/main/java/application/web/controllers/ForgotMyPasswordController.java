@@ -82,7 +82,7 @@ public class ForgotMyPasswordController {
         if (null == passwordResetToken) {
             LOG.warn("Couldn't find a password reset token for email {}", email);
         } else { 
-
+        	
             User user = passwordResetToken.getUser();
             String token = passwordResetToken.getToken();
 
@@ -98,8 +98,9 @@ public class ForgotMyPasswordController {
 
             emailService.sendGenericEmailMessage(mailMessage);
         }
-//
+        
         model.addAttribute(MAIL_SENT_KEY, "true");
+        
 
         return EMAIL_ADDRESS_VIEW_NAME;
     }
@@ -127,17 +128,17 @@ public class ForgotMyPasswordController {
 
         User user = passwordResetToken.getUser();
         if (user.getId() != id) {
-//            LOG.error("The user id {} passed as parameter does not match the user id {} associated with the token {}",
-//                    id, user.getId(), token);
-//            model.addAttribute(PASSWORD_RESET_ATTRIBUTE_NAME, "false");
-//            model.addAttribute(MESSAGE_ATTRIBUTE_NAME, i18NService.getMessage("resetPassword.token.invalid", locale));
+            LOG.error("The user id {} passed as parameter does not match the user id {} associated with the token {}",
+                    id, user.getId(), token);
+            model.addAttribute(PASSWORD_RESET_ATTRIBUTE_NAME, "false");
+            model.addAttribute(MESSAGE_ATTRIBUTE_NAME, i18NService.getMessage("resetPassword.token.invalid", locale));
             return CHANGE_PASSWORD_VIEW_NAME;
         }
 
         if (LocalDateTime.now(Clock.systemUTC()).isAfter(passwordResetToken.getExpiryDate())) {
-//            LOG.error("The token {} has expired", token);
-//            model.addAttribute(PASSWORD_RESET_ATTRIBUTE_NAME, "false");
-//            model.addAttribute(MESSAGE_ATTRIBUTE_NAME, i18NService.getMessage("resetPassword.token.expired", locale));
+            LOG.error("The token {} has expired", token);
+            model.addAttribute(PASSWORD_RESET_ATTRIBUTE_NAME, "false");
+            model.addAttribute(MESSAGE_ATTRIBUTE_NAME, i18NService.getMessage("resetPassword.token.expired", locale));
             return CHANGE_PASSWORD_VIEW_NAME;
         }
 
