@@ -21,30 +21,30 @@
 						<p class="lead" th:text="#{contact.p.lead}"></p>
 
 						<form id="contactForm" th:action="@{/contact/}"
-							th:object="${feedback}" method="post" class="text-left">
+							th:object="${feedback}" method="post" class="text-left" name="contactForm">
 
 							<div class="form-group">
 								<label for="email" th:text="#{form.email}"></label> <input
 									type="email" id="email" th:field="*{email}"
-									class="form-control" />
+									class="form-control" name="email"/>
 							</div>
 
 							<div class="form-group">
 								<label for="firstName" th:text="#{form.firstname}"></label> <input
 									type="text" id="firstName" th:field="*{firstName}"
-									class="form-control" />
+									class="form-control" name="firstName"/>
 							</div>
 
 							<div class="form-group">
 								<label for="lastName" th:text="#{form.lastname}"></label> <input
 									type="text" id="lastName" th:field="*{lastName}"
-									class="form-control" />
+									class="form-control" name="lastName"/>
 							</div>
 
 							<div class="form-group">
 								<label for="feedback" th:text="#{contact.feedback.form.text}"></label>
 								<textarea id="feedback" th:field="*{feedback}"
-									class="form-control" />
+									class="form-control" name="feedback"/>
 							</div>
 
 							<div class="form-group">
