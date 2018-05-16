@@ -125,6 +125,90 @@ $(function() {
 		}
 	});
 	
+	
+	/* Signup form validation */
+    $( "form[name='signupForm']" ).validate({
+               
+    	rules : {
+    	
+    		email : {
+				required : true
+			},
+    		
+			username : {
+				required : true
+			},
+			
+			password : {
+				required : true,
+				minlength : 6
+			},
+			
+			confirmPassword : {
+				required : true,
+				minlength : 6,
+				equalTo : "#password"
+			},
+			
+			firstName : {
+				required : true
+			},
+			
+			lastName : {
+				required : true
+			},
+			
+			description : {
+				required : true,
+				min: 0,
+                max: function (value, validator, $field) {
+                    return 300 - (value.match(/\r/g) || []).length;
+                }
+			},
+		},
+    	
+		messages : {
+			email: "The email is required",
+			username : "The username is required",
+			password : {
+				required : "Please provide a password",
+				minlength : "Your password must be at least 6 characters long"
+			},
+			confirmPassword : "The confirmation password must match exactly the password field",
+			firstName : "The first name is required",
+			lastName : "The last name is required",
+			description: "Post content must be less than 300 characters"
+		},
+		
+		// Make sure the form is submitted to the destination defined
+		// in the "action" attribute of the form when valid
+		submitHandler : function(form) {
+			form.submit();
+		}
+		
+		
+		
+//		    phoneNumber: {
+//                    validators: {
+//                        notEmpty: {
+//                            message: 'The phone number is required'
+//                        },
+//                        phone: {
+//                            country: 'country',
+//                            message: 'The value is not valid %s phone number'
+//                        }
+//                    }
+//                }
+//            }
+//        })
+//        // Revalidate phone number when changing the country
+//        .on('change', '[name="country"]', function(e) {
+//            $('#signupForm').formValidation('revalidateField', 'phoneNumber');
+            
+            
+        });
+	
+	
 
 });
 
