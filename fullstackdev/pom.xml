@@ -124,6 +124,13 @@
 			<version>1.0</version>
 		</dependency>
 
+       <!-- AWS dependencies -->
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-java-sdk</artifactId>
+			<version>LATEST</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
