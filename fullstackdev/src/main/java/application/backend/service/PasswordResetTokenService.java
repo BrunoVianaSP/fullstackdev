@@ -1,4 +1,4 @@
-package application.backend.services;
+package application.backend.service;
 
 import java.time.Clock;
 import java.time.LocalDateTime;

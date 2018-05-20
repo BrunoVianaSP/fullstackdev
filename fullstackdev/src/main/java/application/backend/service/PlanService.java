@@ -1,4 +1,4 @@
-package application.backend.services;
+package application.backend.service;
 
 import application.backend.persistence.domain.backend.Plan;
 import application.backend.persistence.repositories.PlanRepository;

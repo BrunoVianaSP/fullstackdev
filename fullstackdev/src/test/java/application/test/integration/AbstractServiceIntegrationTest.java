@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import application.backend.persistence.domain.backend.Role;
 import application.backend.persistence.domain.backend.User;
 import application.backend.persistence.domain.backend.UserRole;
-import application.backend.services.UserService;
+import application.backend.service.UserService;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
 import application.utils.UserUtils;

@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import application.FullstackdevApplication;
 import application.backend.persistence.domain.backend.PasswordResetToken;
 import application.backend.persistence.domain.backend.User;
-import application.backend.services.PasswordResetTokenService;
+import application.backend.service.PasswordResetTokenService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = FullstackdevApplication.class)

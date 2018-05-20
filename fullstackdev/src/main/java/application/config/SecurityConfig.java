@@ -14,7 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import application.backend.services.UserSecurityService;
+import application.backend.service.UserSecurityService;
 import application.web.controllers.ForgotMyPasswordController;
 import application.web.controllers.SignupController;
 

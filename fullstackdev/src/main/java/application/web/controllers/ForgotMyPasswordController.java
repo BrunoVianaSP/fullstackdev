@@ -2,10 +2,10 @@ package application.web.controllers;
 
 import application.backend.persistence.domain.backend.PasswordResetToken;
 import application.backend.persistence.domain.backend.User;
-import application.backend.services.EmailService;
-import application.backend.services.I18nService;
-import application.backend.services.PasswordResetTokenService;
-import application.backend.services.UserService;
+import application.backend.service.EmailService;
+import application.backend.service.I18nService;
+import application.backend.service.PasswordResetTokenService;
+import application.backend.service.UserService;
 import application.utils.UserUtils;
 
 //import application.backend.services.;
