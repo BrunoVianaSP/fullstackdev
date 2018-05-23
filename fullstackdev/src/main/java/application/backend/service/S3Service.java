@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.amazonaws.AmazonClientException;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.AccessControlList;
+import com.amazonaws.services.s3.model.GroupGrantee;
+import com.amazonaws.services.s3.model.Permission;
+import com.amazonaws.services.s3.model.PutObjectRequest;
+
+//import com.amazonaws.AmazonClientException;
+//import application.exceptions.S3Exception;
+
 
 @Service
 public class S3Service {
@@ -140,9 +150,12 @@ public class S3Service {
             String key = username + "/" + PROFILE_PICTURE_FILE_NAME + "." + FilenameUtils.getExtension(resource.getName());
 
             try {
+//            	s3Client.putObject(arg0)
+//            	s3Client.putObject(rootBucketUrl, key, input, metadata)
                 s3Client.putObject(new PutObjectRequest(bucketName, key, resource).withAccessControlList(acl));
                 resourceUrl = s3Client.getResourceUrl(bucketName, key);
-            } catch (AmazonClientException ace) {
+            }
+            catch (Exception ace) {
                 LOG.error("A client exception occurred while trying to store the profile" +
                         " image {} on S3. The profile image won't be stored", resource.getAbsolutePath(), ace);
             }

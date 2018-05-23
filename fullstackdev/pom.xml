@@ -123,13 +123,22 @@
 			<artifactId>jcip-annotations</artifactId>
 			<version>1.0</version>
 		</dependency>
-
+		
        <!-- AWS dependencies -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
+			<!-- <version>LATEST</version> -->
+			<version>1.10.76</version>
+		</dependency>
+		
+		<!-- Commons dependencies -->
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
 			<version>LATEST</version>
 		</dependency>
+		
 		
 	</dependencies>
 

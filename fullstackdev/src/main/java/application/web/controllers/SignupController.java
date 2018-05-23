@@ -5,6 +5,7 @@ import application.backend.persistence.domain.backend.Role;
 import application.backend.persistence.domain.backend.User;
 import application.backend.persistence.domain.backend.UserRole;
 import application.backend.service.PlanService;
+import application.backend.service.S3Service;
 import application.backend.service.UserService;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
