@@ -32,143 +32,143 @@ import application.utils.UserUtils;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class RepositoriesIntegrationTest {
 
-    @Autowired
-    private PlanRepository planRepository;
+	@Autowired
+	private PlanRepository planRepository;
 
-    @Autowired
-    private RoleRepository roleRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 
-    @Autowired
-    private UserRepository userRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-    
-    @Rule
-    public TestName testName = new TestName();
-    
-    @Before
-    public void init() {
-        assertNotNull(planRepository);
-        assertNotNull(roleRepository);
-        assertNotNull(userRepository);
-    }
+	@Rule
+	public TestName testName = new TestName();
 
-    @Test
-    public void testCreateNewPlan() throws Exception {
-        Plan basicPlan = createPlan(PlansEnum.BASIC);
-        planRepository.save(basicPlan);
-        Optional<Plan> retrievedPlan = planRepository.findById(PlansEnum.BASIC.getId());
-        assertNotNull(retrievedPlan);
-    }
+	@Before
+	public void init() {
+		assertNotNull(planRepository);
+		assertNotNull(roleRepository);
+		assertNotNull(userRepository);
+	}
 
-    @Test
-    public void testCreateNewRole() throws Exception {
+	@Test
+	public void testCreateNewPlan() throws Exception {
+		Plan basicPlan = createPlan(PlansEnum.BASIC);
+		planRepository.save(basicPlan);
+		Optional<Plan> retrievedPlan = planRepository.findById(PlansEnum.BASIC.getId());
+		assertNotNull(retrievedPlan);
+	}
 
-        Role userRole  = createRole(RolesEnum.BASIC);
-        roleRepository.save(userRole);
+	@Test
+	public void testCreateNewRole() throws Exception {
 
-        Optional<Role> retrievedRole = roleRepository.findById(RolesEnum.BASIC.getId());
-        assertNotNull(retrievedRole);
-    }
+		Role userRole = createRole(RolesEnum.BASIC);
+		roleRepository.save(userRole);
 
-    @Test
-    public void createNewUser() throws Exception {
+		Optional<Role> retrievedRole = roleRepository.findById(RolesEnum.BASIC.getId());
+		assertNotNull(retrievedRole);
+	}
 
-    	String userName = testName.getMethodName(); 
-		String email = testName.getMethodName() + "@email.com"; 
-		
-        User basicUser = createUser(userName, email);
+	@Test
+	public void createNewUser() throws Exception {
 
-        Optional<User> newlyCreatedUser = userRepository.findById(basicUser.getId());
-        assertNotNull(newlyCreatedUser);
-        assertTrue(newlyCreatedUser.get().getId() != 0);
-        assertNotNull(newlyCreatedUser.get().getPlan());
-        assertNotNull(newlyCreatedUser.get().getPlan().getId());
-        Set<UserRole> newlyCreatedUserUserRoles = newlyCreatedUser.get().getUserRoles();
-        for (UserRole ur : newlyCreatedUserUserRoles) {
-            assertNotNull(ur.getRole());
-            assertNotNull(ur.getRole().getId());
-        }
+		String userName = testName.getMethodName();
+		String email = testName.getMethodName() + "@email.com";
 
-    }
+		User basicUser = createUser(userName, email);
 
-    @Test
-    public void testDeleteUser() throws Exception {
-    	String userName = testName.getMethodName(); 
-		String email = testName.getMethodName() + "@email.com"; 
-        User basicUser = createUser(userName, email);
-        userRepository.deleteById(basicUser.getId());
-    }
+		Optional<User> newlyCreatedUser = userRepository.findById(basicUser.getId());
+		assertNotNull(newlyCreatedUser);
+		assertTrue(newlyCreatedUser.get().getId() != 0);
+		assertNotNull(newlyCreatedUser.get().getPlan());
+		assertNotNull(newlyCreatedUser.get().getPlan().getId());
+		Set<UserRole> newlyCreatedUserUserRoles = newlyCreatedUser.get().getUserRoles();
+		for (UserRole ur : newlyCreatedUserUserRoles) {
+			assertNotNull(ur.getRole());
+			assertNotNull(ur.getRole().getId());
+		}
 
-    //-----------------> Private methods
+	}
 
-    private Plan createPlan(PlansEnum plansEnum) {
-        return new Plan(plansEnum);
-    }
+	@Test
+	public void testDeleteUser() throws Exception {
+		String userName = testName.getMethodName();
+		String email = testName.getMethodName() + "@email.com";
+		User basicUser = createUser(userName, email);
+		userRepository.deleteById(basicUser.getId());
+	}
 
-    private Role createRole(RolesEnum rolesEnum) {
-        return new Role(rolesEnum);
-    }
+	// -----------------> Private methods
 
-    private User createUser(String userName, String email) {
-        Plan basicPlan = createPlan(PlansEnum.BASIC);
-        planRepository.save(basicPlan);
+	private Plan createPlan(PlansEnum plansEnum) {
+		return new Plan(plansEnum);
+	}
 
-        User basicUser = UserUtils.createBasicUser(userName, email);
-        basicUser.setPlan(basicPlan);
+	private Role createRole(RolesEnum rolesEnum) {
+		return new Role(rolesEnum);
+	}
 
-        Role basicRole = createRole(RolesEnum.BASIC);
-        roleRepository.save(basicRole);
+	private User createUser(String userName, String email) {
+		Plan basicPlan = createPlan(PlansEnum.BASIC);
+		planRepository.save(basicPlan);
 
-        Set<UserRole> userRoles = new HashSet<>();
-        UserRole userRole = new UserRole(basicUser, basicRole);
-        userRoles.add(userRole);
+		User basicUser = UserUtils.createBasicUser(userName, email);
+		basicUser.setPlan(basicPlan);
 
-        basicUser.getUserRoles().addAll(userRoles);
-        basicUser = userRepository.save(basicUser);
-        return basicUser;
-    }
-    
-//    @Test
-//    public void createNewUser() throws Exception {
-//
-//        Plan basicPlan = createPlan(PlansEnum.BASIC);
-//        planRepository.save(basicPlan);
-//
-//        User basicUser = UsersUtils.createBasicUser();
-//        basicUser.setPlan(basicPlan);
-//
-//        Role basicRole = createRole(RolesEnum.BASIC);
-//        Set<UserRole> userRoles = new HashSet<>();
-//        UserRole userRole = new UserRole(basicUser, basicRole);
-//        userRoles.add(userRole);
-//
-//        basicUser.getUserRoles().addAll(userRoles);
-//
-//        for (UserRole ur : userRoles) {
-//            roleRepository.save(ur.getRole());
-//        }
-//
-//        basicUser = userRepository.save(basicUser);
-//        Optional<User> newlyCreatedUser = userRepository.findById(basicUser.getId());
-//      
-//        assertNotNull(newlyCreatedUser);
-//        assertTrue(newlyCreatedUser.get().getId() != 0);
-//        assertNotNull(newlyCreatedUser.get().getPlan());
-//        assertNotNull(newlyCreatedUser.get().getPlan().getId());
-//        Set<UserRole> newlyCreatedUserUserRoles = newlyCreatedUser.get().getUserRoles();
-//        for (UserRole ur : newlyCreatedUserUserRoles) {
-//            assertNotNull(ur.getRole());
-//            assertNotNull(ur.getRole().getId());
-//        }
-//
-//    }
-//
-//    //-----------------> Private methods
-//    private Plan createPlan(PlansEnum plansEnum) {
-//        return new Plan(plansEnum);
-//    }
-//
-//    private Role createRole(RolesEnum rolesEnum) {
-//        return new Role(rolesEnum);
-//    }
+		Role basicRole = createRole(RolesEnum.BASIC);
+		roleRepository.save(basicRole);
+
+		Set<UserRole> userRoles = new HashSet<>();
+		UserRole userRole = new UserRole(basicUser, basicRole);
+		userRoles.add(userRole);
+
+		basicUser.getUserRoles().addAll(userRoles);
+		basicUser = userRepository.save(basicUser);
+		return basicUser;
+	}
+
+	// @Test
+	// public void createNewUser() throws Exception {
+	//
+	// Plan basicPlan = createPlan(PlansEnum.BASIC);
+	// planRepository.save(basicPlan);
+	//
+	// User basicUser = UsersUtils.createBasicUser();
+	// basicUser.setPlan(basicPlan);
+	//
+	// Role basicRole = createRole(RolesEnum.BASIC);
+	// Set<UserRole> userRoles = new HashSet<>();
+	// UserRole userRole = new UserRole(basicUser, basicRole);
+	// userRoles.add(userRole);
+	//
+	// basicUser.getUserRoles().addAll(userRoles);
+	//
+	// for (UserRole ur : userRoles) {
+	// roleRepository.save(ur.getRole());
+	// }
+	//
+	// basicUser = userRepository.save(basicUser);
+	// Optional<User> newlyCreatedUser = userRepository.findById(basicUser.getId());
+	//
+	// assertNotNull(newlyCreatedUser);
+	// assertTrue(newlyCreatedUser.get().getId() != 0);
+	// assertNotNull(newlyCreatedUser.get().getPlan());
+	// assertNotNull(newlyCreatedUser.get().getPlan().getId());
+	// Set<UserRole> newlyCreatedUserUserRoles =
+	// newlyCreatedUser.get().getUserRoles();
+	// for (UserRole ur : newlyCreatedUserUserRoles) {
+	// assertNotNull(ur.getRole());
+	// assertNotNull(ur.getRole().getId());
+	// }
+	//
+	// }
+	//
+	// //-----------------> Private methods
+	// private Plan createPlan(PlansEnum plansEnum) {
+	// return new Plan(plansEnum);
+	// }
+	//
+	// private Role createRole(RolesEnum rolesEnum) {
+	// return new Role(rolesEnum);
+	// }
 }

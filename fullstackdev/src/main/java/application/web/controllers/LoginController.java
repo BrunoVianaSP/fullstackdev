@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
 
 	/** The login view name */
-    public static final String LOGIN_VIEW_NAME = "user/login";
+	public static final String LOGIN_VIEW_NAME = "user/login";
 
-    @RequestMapping("/login")
-    public String login() {
-        return LOGIN_VIEW_NAME;
-    }
+	@RequestMapping("/login")
+	public String login() {
+		return LOGIN_VIEW_NAME;
+	}
 }

@@ -25,89 +25,87 @@ import application.enums.RolesEnum;
 @SpringBootTest(classes = FullstackdevApplication.class)
 public class UserRepositoryIntegrationTest extends AbstractIntegrationTest {
 
+	@Rule
+	public TestName testName = new TestName();
 
+	@Before
+	public void init() {
+		Assert.assertNotNull(planRepository);
+		Assert.assertNotNull(roleRepository);
+		Assert.assertNotNull(userRepository);
+	}
 
-    @Rule public TestName testName = new TestName();
+	@Test
+	public void testCreateNewPlan() throws Exception {
+		Plan basicPlan = createPlan(PlansEnum.BASIC);
+		planRepository.save(basicPlan);
+		Optional<Plan> retrievedPlan = planRepository.findById(PlansEnum.BASIC.getId());
+		Assert.assertNotNull(retrievedPlan.get());
+	}
 
+	@Test
+	public void testCreateNewRole() throws Exception {
 
-    @Before
-    public void init() {
-        Assert.assertNotNull(planRepository);
-        Assert.assertNotNull(roleRepository);
-        Assert.assertNotNull(userRepository);
-    }
+		Role userRole = createRole(RolesEnum.BASIC);
+		roleRepository.save(userRole);
 
-    @Test
-    public void testCreateNewPlan() throws Exception {
-        Plan basicPlan = createPlan(PlansEnum.BASIC);
-        planRepository.save(basicPlan);
-        Optional<Plan> retrievedPlan = planRepository.findById(PlansEnum.BASIC.getId());
-        Assert.assertNotNull(retrievedPlan.get());
-    }
+		Optional<Role> retrievedRole = roleRepository.findById(RolesEnum.BASIC.getId());
+		Assert.assertNotNull(retrievedRole);
+	}
 
-    @Test
-    public void testCreateNewRole() throws Exception {
+	@Test
+	public void createNewUser() throws Exception {
 
-        Role userRole  = createRole(RolesEnum.BASIC);
-        roleRepository.save(userRole);
+		String username = testName.getMethodName();
+		String email = testName.getMethodName() + "@devopsbuddy.com";
 
-        Optional<Role> retrievedRole = roleRepository.findById(RolesEnum.BASIC.getId());
-        Assert.assertNotNull(retrievedRole);
-    }
+		User basicUser = createUser(username, email);
 
-    @Test
-    public void createNewUser() throws Exception {
+		Optional<User> newlyCreatedUser = userRepository.findById(basicUser.getId());
+		Assert.assertNotNull(newlyCreatedUser);
+		Assert.assertTrue(newlyCreatedUser.get().getId() != 0);
+		Assert.assertNotNull(newlyCreatedUser.get().getPlan());
+		Assert.assertNotNull(newlyCreatedUser.get().getPlan().getId());
+		Set<UserRole> newlyCreatedUserUserRoles = newlyCreatedUser.get().getUserRoles();
+		for (UserRole ur : newlyCreatedUserUserRoles) {
+			Assert.assertNotNull(ur.getRole());
+			Assert.assertNotNull(ur.getRole().getId());
+		}
 
-        String username = testName.getMethodName();
-        String email = testName.getMethodName() + "@devopsbuddy.com";
+	}
 
-        User basicUser = createUser(username, email);
+	@Test
+	public void testDeleteUser() throws Exception {
 
-        Optional<User> newlyCreatedUser = userRepository.findById(basicUser.getId());
-        Assert.assertNotNull(newlyCreatedUser);
-        Assert.assertTrue(newlyCreatedUser.get().getId() != 0);
-        Assert.assertNotNull(newlyCreatedUser.get().getPlan());
-        Assert.assertNotNull(newlyCreatedUser.get().getPlan().getId());
-        Set<UserRole> newlyCreatedUserUserRoles = newlyCreatedUser.get().getUserRoles();
-        for (UserRole ur : newlyCreatedUserUserRoles) {
-            Assert.assertNotNull(ur.getRole());
-            Assert.assertNotNull(ur.getRole().getId());
-        }
+		String username = testName.getMethodName();
+		String email = testName.getMethodName() + "@devopsbuddy.com";
 
-    }
+		User basicUser = createUser(username, email);
+		userRepository.deleteById(basicUser.getId());
+	}
 
-    @Test
-    public void testDeleteUser() throws Exception {
+	@Test
+	public void testGetUserByEmail() throws Exception {
+		User user = createUser(testName);
 
-        String username = testName.getMethodName();
-        String email = testName.getMethodName() + "@devopsbuddy.com";
+		User newlyFoundUser = userRepository.findByEmail(user.getEmail());
+		Assert.assertNotNull(newlyFoundUser);
+		Assert.assertNotNull(newlyFoundUser.getId());
+	}
 
-        User basicUser = createUser(username, email);
-        userRepository.deleteById(basicUser.getId());
-    }
+	@Test
+	public void testUpdateUserPassword() throws Exception {
+		User user = createUser(testName);
+		Assert.assertNotNull(user);
+		Assert.assertNotNull(user.getId());
 
-    @Test
-    public void testGetUserByEmail() throws Exception {
-        User user = createUser(testName);
+		String newPassword = UUID.randomUUID().toString();
 
-        User newlyFoundUser = userRepository.findByEmail(user.getEmail());
-        Assert.assertNotNull(newlyFoundUser);
-        Assert.assertNotNull(newlyFoundUser.getId());
-    }
+		userRepository.updateUserPassword(user.getId(), newPassword);
 
-    @Test
-    public void testUpdateUserPassword() throws Exception {
-        User user = createUser(testName);
-        Assert.assertNotNull(user);
-        Assert.assertNotNull(user.getId());
+		Optional<User> foundUser = userRepository.findById(user.getId());
+		Assert.assertEquals(newPassword, foundUser.get().getPassword());
 
-        String newPassword = UUID.randomUUID().toString();
-
-        userRepository.updateUserPassword(user.getId(), newPassword);
-
-        Optional<User> foundUser = userRepository.findById(user.getId());
-        Assert.assertEquals(newPassword, foundUser.get().getPassword());
-
-    }
+	}
 
 }

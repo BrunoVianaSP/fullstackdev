@@ -10,9 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import application.backend.persistence.domain.backend.User;
 
- 
 @Repository
-//@Transactional(dontRollbackOn = true)
+// @Transactional(dontRollbackOn = true)
 public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findByUsername(String username);
@@ -21,6 +20,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	@Transactional
 	@Modifying
-    @Query("update User u set u.password = :password where u.id = :userId")
-    void updateUserPassword(@Param("userId") long userId, @Param("password") String password);
+	@Query("update User u set u.password = :password where u.id = :userId")
+	void updateUserPassword(@Param("userId") long userId, @Param("password") String password);
 }

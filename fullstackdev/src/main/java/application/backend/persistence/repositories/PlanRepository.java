@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import application.backend.persistence.domain.backend.Plan;
 
- 
 @Repository
 public interface PlanRepository extends CrudRepository<Plan, Integer> {
 }
