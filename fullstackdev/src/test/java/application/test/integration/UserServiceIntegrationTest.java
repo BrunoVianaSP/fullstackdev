@@ -15,15 +15,16 @@ import application.backend.persistence.domain.backend.User;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class UserServiceIntegrationTest extends AbstractServiceIntegrationTest {
 
-    @Rule public TestName testName = new TestName();
+	@Rule
+	public TestName testName = new TestName();
 
-    @Test
-    public void testCreateNewUser() throws Exception {
+	@Test
+	public void testCreateNewUser() throws Exception {
 
-        User user = createUser(testName);
-        Assert.assertNotNull(user);
-        Assert.assertNotNull(user.getId());
+		User user = createUser(testName);
+		Assert.assertNotNull(user);
+		Assert.assertNotNull(user.getId());
 
-    }
+	}
 
 }

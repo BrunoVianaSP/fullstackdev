@@ -31,7 +31,7 @@ public class FullstackdevApplication implements CommandLineRunner {
 
 	@Autowired
 	private PlanService planService;
-	
+
 	@Value("${webmaster.username}")
 	private String webmasterUsername;
 
@@ -40,19 +40,19 @@ public class FullstackdevApplication implements CommandLineRunner {
 
 	@Value("${webmaster.email}")
 	private String webmasterEmail;
-	
+
 	public static void main(String[] args) {
 		SpringApplication.run(FullstackdevApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
-//		String userName = "proUser"; 
-//		String email = "proUser@email.com";
-		
+		// String userName = "proUser";
+		// String email = "proUser@email.com";
+
 		planService.createPlan(PlansEnum.BASIC.getId());
 		planService.createPlan(PlansEnum.PRO.getId());
-		
+
 		User user = UserUtils.createBasicUser(webmasterUsername, webmasterPassword);
 		user.setPassword(webmasterPassword);
 		user.setEmail(webmasterEmail);

@@ -15,18 +15,18 @@ import application.enums.RolesEnum;
 import application.utils.UserUtils;
 
 public abstract class AbstractServiceIntegrationTest {
-    
+
 	@Autowired
-    protected UserService userService;
+	protected UserService userService;
 
-    protected User createUser(TestName testName) {
-        String username = testName.getMethodName();
-        String email = testName.getMethodName() + "@devopsbuddy.com";
+	protected User createUser(TestName testName) {
+		String username = testName.getMethodName();
+		String email = testName.getMethodName() + "@devopsbuddy.com";
 
-        Set<UserRole> userRoles = new HashSet<>();
-        User basicUser = UserUtils.createBasicUser(username, email);
-        userRoles.add(new UserRole(basicUser, new Role(RolesEnum.BASIC)));
+		Set<UserRole> userRoles = new HashSet<>();
+		User basicUser = UserUtils.createBasicUser(username, email);
+		userRoles.add(new UserRole(basicUser, new Role(RolesEnum.BASIC)));
 
-        return userService.createUser(basicUser, PlansEnum.BASIC, userRoles);
-    }
+		return userService.createUser(basicUser, PlansEnum.BASIC, userRoles);
+	}
 }

@@ -8,22 +8,21 @@ import org.springframework.context.annotation.PropertySource;
 import application.backend.service.EmailService;
 import application.backend.service.SmtpEmailService;
 
- 
 @Configuration
 @Profile("prod")
 @PropertySource("file:///${user.home}/.fullstackdev/application-prod.properties")
 public class ProductionConfig {
 
-//    @Value("${stripe.prod.private.key}")
-//    private String stripeProdKey;
+	// @Value("${stripe.prod.private.key}")
+	// private String stripeProdKey;
 
-    @Bean
-    public EmailService emailService() {
-        return new SmtpEmailService();
-    }
+	@Bean
+	public EmailService emailService() {
+		return new SmtpEmailService();
+	}
 
-//    @Bean
-//    public String stripeKey() {
-//        return stripeProdKey;
-//    }
+	// @Bean
+	// public String stripeKey() {
+	// return stripeProdKey;
+	// }
 }
