@@ -158,6 +158,14 @@ $(function() {
 				required : true
 			},
 			
+			cardNumber : {
+				required : true
+			},
+			
+			cardCode : {
+				required : true
+			},
+			
 			description : {
 				required : true,
 				min: 0,
@@ -177,7 +185,9 @@ $(function() {
 			confirmPassword : "The confirmation password must match exactly the password field",
 			firstName : "The first name is required",
 			lastName : "The last name is required",
-			description: "Post content must be less than 300 characters"
+			description: "Post content must be less than 300 characters",
+			cardNumber: "Card Number is required",
+			cardCode: "Card Code is required"
 		},
 		
 		// Make sure the form is submitted to the destination defined

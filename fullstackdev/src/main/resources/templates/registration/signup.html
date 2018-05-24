@@ -132,6 +132,50 @@
                                name="phoneNumber" />
                     </div>
 
+					<!-- Additional HTML form fields for Pro Account subscription -->
+                    <div th:if="${#httpServletRequest.getParameter('planId') == #strings.toString(T(application.enums.PlansEnum).PRO.getId())}">
+                        <div class="form-group">
+                            <label for="cardNumber" th:text="#{signup.form.credit.card.number}"></label>
+                            <input type="text" id="cardNumber" th:field="*{cardNumber}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardCode" id="cardCode" th:text="#{signup.form.cvv.number}"></label>
+                            <input type="text" th:field="*{cardCode}" class="form-control"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="cardMonth" th:text="#{signup.form.card.expiration}"></label>
+                            <select id="cardMonth" name="cardMonth">
+                                <option value="1">1 - January</option>
+                                <option value="2">2 - February</option>
+                                <option value="3">3 - March</option>
+                                <option value="4">4 - April</option>
+                                <option value="5">5 - May</option>
+                                <option value="6">6 - June</option>
+                                <option value="7">7 - July</option>
+                                <option value="8">8 - August</option>
+                                <option value="9">9 - September</option>
+                                <option value="10">10 - October</option>
+                                <option value="11">11 - November</option>
+                                <option value="12">12 - December</option>
+                            </select>
+                            <select id="cardYear" name="cardYear">
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                                <option value="2020">2020</option>
+                                <option value="2021">2021</option>
+                                <option value="2022">2022</option>
+                                <option value="2023">2023</option>
+                                <option value="2024">2024</option>
+                                <option value="2025">2025</option>
+                                <option value="2026">2026</option>
+                                <option value="2027">2027</option>
+                                <option value="2028">2028</option>
+                                <option value="2029">2029</option>
+                                <option value="2030">2030</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <button type="submit" class="btn btn-primary" th:text="#{form.submit}"></button>
 
                 </form>

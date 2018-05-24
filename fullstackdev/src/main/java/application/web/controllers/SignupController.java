@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.thymeleaf.util.StringUtils;
 
 import application.backend.persistence.domain.backend.Plan;
 import application.backend.persistence.domain.backend.Role;
@@ -151,6 +152,19 @@ public class SignupController {
 			registeredUser = userService.createUser(user, PlansEnum.BASIC, roles);
 		} else {
 			roles.add(new UserRole(user, new Role(RolesEnum.PRO)));
+			
+			// Extra precaution in case the POST method is invoked programmatically
+            if (StringUtils.isEmpty(payload.getCardCode()) ||
+                    StringUtils.isEmpty(payload.getCardNumber()) ||
+                    StringUtils.isEmpty(payload.getCardMonth()) ||
+                    StringUtils.isEmpty(payload.getCardYear())) {
+                LOG.error("One or more credit card fields is null or empty. Returning error to the user");
+                model.addAttribute(SIGNED_UP_MESSAGE_KEY, "false");
+                model.addAttribute(ERROR_MESSAGE_KEY, "One of more credit card details is null or empty.");
+                return SUBSCRIPTION_VIEW_NAME;
+
+            }
+            
 			registeredUser = userService.createUser(user, PlansEnum.PRO, roles);
 			LOG.debug(payload.toString());
 		}
