@@ -20,8 +20,6 @@ import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.google.gson.GsonBuilder;
-
 @Entity
 public class User implements Serializable, UserDetails {
 
@@ -76,6 +74,21 @@ public class User implements Serializable, UserDetails {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<UserRole> userRoles = new HashSet<>();
 
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY,
+            mappedBy = "user"
+    )
+    private Set<PasswordResetToken> passwordResetTokens = new HashSet<>();
+
+    public Set<PasswordResetToken> getPasswordResetTokens() {
+        return passwordResetTokens;
+    }
+
+    public void setPasswordResetTokens(Set<PasswordResetToken> passwordResetTokens) {
+        this.passwordResetTokens = passwordResetTokens;
+    }
+
     public long getId() {
         return id;
     }
@@ -84,9 +97,12 @@ public class User implements Serializable, UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
+    @Override
+	public String getUsername() {
         return username;
     }
+
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -156,7 +172,8 @@ public class User implements Serializable, UserDetails {
         this.stripeCustomerId = stripeCustomerId;
     }
 
-    public boolean isEnabled() {
+    @Override
+	public boolean isEnabled() {
         return enabled;
     }
 
@@ -186,7 +203,8 @@ public class User implements Serializable, UserDetails {
         return authorities;
     }
 
-    public String getPassword() {
+    @Override
+	public String getPassword() {
         return password;
     }
 
@@ -216,7 +234,9 @@ public class User implements Serializable, UserDetails {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
+
         return id == user.id;
 
     }
@@ -226,40 +246,8 @@ public class User implements Serializable, UserDetails {
         return (int) (id ^ (id >>> 32));
     }
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("User [id=");
-		builder.append(id);
-		builder.append(", username=");
-		builder.append(username);
-		builder.append(", password=");
-		builder.append(password);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", firstName=");
-		builder.append(firstName);
-		builder.append(", lastName=");
-		builder.append(lastName);
-		builder.append(", phoneNumber=");
-		builder.append(phoneNumber);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", country=");
-		builder.append(country);
-		builder.append(", profileImageUrl=");
-		builder.append(profileImageUrl);
-		builder.append(", stripeCustomerId=");
-		builder.append(stripeCustomerId);
-		builder.append(", enabled=");
-		builder.append(enabled);
-		builder.append(", plan=");
-		builder.append(plan);
-		builder.append(", userRoles=");
-		builder.append(userRoles);
-		builder.append("]");
-		return builder.toString();
-	}
+
+}
     
 //    @Override
 //    public String toString() {
@@ -267,5 +255,4 @@ public class User implements Serializable, UserDetails {
 //    	return new GsonBuilder().setPrettyPrinting().create().toJson(this);
 //    }
 
-}
 

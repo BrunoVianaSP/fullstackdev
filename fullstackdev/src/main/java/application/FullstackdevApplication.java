@@ -14,10 +14,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import application.backend.persistence.domain.backend.Role;
 import application.backend.persistence.domain.backend.User;
 import application.backend.persistence.domain.backend.UserRole;
-import application.backend.services.UserService;
+import application.backend.service.PlanService;
+import application.backend.service.UserService;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
-import application.utils.UsersUtils;
+import application.utils.UserUtils;
 
 @SpringBootApplication
 public class FullstackdevApplication implements CommandLineRunner {
@@ -28,6 +29,9 @@ public class FullstackdevApplication implements CommandLineRunner {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private PlanService planService;
+	
 	@Value("${webmaster.username}")
 	private String webmasterUsername;
 
@@ -46,8 +50,12 @@ public class FullstackdevApplication implements CommandLineRunner {
 //		String userName = "proUser"; 
 //		String email = "proUser@email.com";
 		
-		User user = UsersUtils.createBasicUser(webmasterUsername, webmasterPassword);
+		planService.createPlan(PlansEnum.BASIC.getId());
+		planService.createPlan(PlansEnum.PRO.getId());
+		
+		User user = UserUtils.createBasicUser(webmasterUsername, webmasterPassword);
 		user.setPassword(webmasterPassword);
+		user.setEmail(webmasterEmail);
 		Set<UserRole> userRoles = new HashSet<>();
 		userRoles.add(new UserRole(user, new Role(RolesEnum.ADMIN)));
 		LOG.debug("Creating user with username {}", user.getUsername());

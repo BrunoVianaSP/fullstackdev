@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import application.backend.services.EmailService;
+import application.backend.service.EmailService;
 import application.web.domain.FeedbackPojo;
 
 @Controller

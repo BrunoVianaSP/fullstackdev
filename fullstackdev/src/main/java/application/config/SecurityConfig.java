@@ -14,7 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import application.backend.services.UserSecurityService;
+import application.backend.service.UserSecurityService;
+import application.web.controllers.ForgotMyPasswordController;
+import application.web.controllers.SignupController;
 
 
 @Configuration
@@ -47,7 +49,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/team/**",
             "/match/**",
             "/error/**/*",
-            "/console/**"
+            "/console/**",
+            ForgotMyPasswordController.FORGOT_PASSWORD_URL_MAPPING,
+            ForgotMyPasswordController.CHANGE_PASSWORD_PATH,
+            SignupController.SIGNUP_URL_MAPPING
     };
 
     @Override
