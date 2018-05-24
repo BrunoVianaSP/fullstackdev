@@ -41,10 +41,12 @@ public class S3Service {
     @Value("${image.store.tmp.folder}")
     private String tempImageStore;
 
+//    @Autowired
+//    private AmazonS3Client s3Client;
+
     @Autowired
-    private AmazonS3Client s3Client;
-
-
+	private S3Services s3Services;
+    
     /**
      * It stores the given file name in S3 and returns the key under which the file has been stored
      * @param uploadedFile The multipart file uploaed by the user
@@ -103,17 +105,17 @@ public class S3Service {
 
         String bucketUrl = null;
 
-        try {
-            if (!s3Client.doesBucketExist(bucketName)) {
-                LOG.info("Bucket {} doesn't exists...Creating one");
-                s3Client.createBucket(bucketName);
-                LOG.info("Created bucket: {}", bucketName);
-            }
-            bucketUrl = s3Client.getResourceUrl(bucketName, null) + bucketName;
-        } catch (AmazonClientException ace) {
-            LOG.error("An error occurred while connecting to S3. Will not execute action" +
-                    " for bucket: {}", bucketName, ace);
-        }
+//        try {
+//            if (!s3Client.doesBucketExist(bucketName)) {
+//                LOG.info("Bucket {} doesn't exists...Creating one");
+//                s3Client.createBucket(bucketName);
+//                LOG.info("Created bucket: {}", bucketName);
+//            }
+//            bucketUrl = s3Client.getResourceUrl(bucketName, null) + bucketName;
+//        } catch (AmazonClientException ace) {
+//            LOG.error("An error occurred while connecting to S3. Will not execute action" +
+//                    " for bucket: {}", bucketName, ace);
+//        }
 
 
         return bucketUrl;
@@ -135,31 +137,45 @@ public class S3Service {
             throw new IllegalArgumentException("The file " + resource.getAbsolutePath() + " doesn't exist");
         }
 
-        String rootBucketUrl = this.ensureBucketExists(bucketName);
+//        String rootBucketUrl = this.ensureBucketExists(bucketName);
+//
+//        if (null == rootBucketUrl) {
+//
+//            LOG.error("The bucket {} does not exist and the application " +
+//                    "was not able to create it. The image won't be stored with the profile", rootBucketUrl);
+//
+//        } else {
+//
+//        	
+//        	
+//        	
+//        	
+////            AccessControlList acl = new AccessControlList();
+////            acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
+//
+//        	LOG.error("Try to send Image!", rootBucketUrl);
+//        	
+//            String key = username + "/" + PROFILE_PICTURE_FILE_NAME + "." + FilenameUtils.getExtension(resource.getName());
+//
+//            s3Services.uploadFile(key, resource.getPath());
+//            
+////            try {
+//////            	s3Client.putObject(arg0)
+//////            	s3Client.putObject(rootBucketUrl, key, input, metadata)
+////                s3Client.putObject(new PutObjectRequest(bucketName, key, resource).withAccessControlList(acl));
+////                resourceUrl = s3Client.getResourceUrl(bucketName, key);
+////            }
+////            catch (Exception ace) {
+////                LOG.error("A client exception occurred while trying to store the profile" +
+////                        " image {} on S3. The profile image won't be stored", resource.getAbsolutePath(), ace);
+////            }
+//        }
+        
+        LOG.info("Try to send Image!");
+    	
+        String key = username + "/" + PROFILE_PICTURE_FILE_NAME + "." + FilenameUtils.getExtension(resource.getName());
 
-        if (null == rootBucketUrl) {
-
-            LOG.error("The bucket {} does not exist and the application " +
-                    "was not able to create it. The image won't be stored with the profile", rootBucketUrl);
-
-        } else {
-
-            AccessControlList acl = new AccessControlList();
-            acl.grantPermission(GroupGrantee.AllUsers, Permission.Read);
-
-            String key = username + "/" + PROFILE_PICTURE_FILE_NAME + "." + FilenameUtils.getExtension(resource.getName());
-
-            try {
-//            	s3Client.putObject(arg0)
-//            	s3Client.putObject(rootBucketUrl, key, input, metadata)
-                s3Client.putObject(new PutObjectRequest(bucketName, key, resource).withAccessControlList(acl));
-                resourceUrl = s3Client.getResourceUrl(bucketName, key);
-            }
-            catch (Exception ace) {
-                LOG.error("A client exception occurred while trying to store the profile" +
-                        " image {} on S3. The profile image won't be stored", resource.getAbsolutePath(), ace);
-            }
-        }
+        s3Services.uploadFile(key, resource.getPath());
 
         return resourceUrl;
 
