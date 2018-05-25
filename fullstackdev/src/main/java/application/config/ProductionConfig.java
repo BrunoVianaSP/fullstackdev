@@ -1,5 +1,6 @@
 package application.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -13,16 +14,16 @@ import application.backend.service.SmtpEmailService;
 @PropertySource("file:///${user.home}/.fullstackdev/application-prod.properties")
 public class ProductionConfig {
 
-	// @Value("${stripe.prod.private.key}")
-	// private String stripeProdKey;
+	 @Value("${stripe.prod.private.key}")
+	 private String stripeProdKey;
 
 	@Bean
 	public EmailService emailService() {
 		return new SmtpEmailService();
 	}
 
-	// @Bean
-	// public String stripeKey() {
-	// return stripeProdKey;
-	// }
+	 @Bean
+	 public String stripeKey() {
+	 return stripeProdKey;
+	 }
 }

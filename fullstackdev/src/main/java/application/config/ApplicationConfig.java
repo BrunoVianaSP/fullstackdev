@@ -19,7 +19,7 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 @EntityScan(basePackages = "application.backend.persistence.domain.backend")
 @EnableTransactionManagement
 @PropertySource("file:///${user.home}/.fullstackdev/application-commom.properties")
-// @PropertySource("file:///${user.home}/.fullstackdev/stripe.properties")
+ @PropertySource("file:///${user.home}/.fullstackdev/stripe.properties")
 public class ApplicationConfig {
 
 	@Value("${jsa.aws.access_key_id}")

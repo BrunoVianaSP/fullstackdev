@@ -1,6 +1,7 @@
 package application.config;
 
 import org.h2.server.web.WebServlet;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 //import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -16,8 +17,8 @@ import application.backend.service.MockEmailService;
 @PropertySource("file:///${user.home}/.fullstackdev/application-dev.properties")
 public class DevelopmentConfig {
 
-	// @Value("${stripe.test.private.key}")
-	// private String stripeDevKey;
+	 @Value("${stripe.test.private.key}")
+	 private String stripeDevKey;
 
 	@Bean
 	public EmailService emailService() {
@@ -31,8 +32,8 @@ public class DevelopmentConfig {
 		return bean;
 	}
 
-	// @Bean
-	// public String stripeKey() {
-	// return stripeDevKey;
-	// }
+	 @Bean
+	 public String stripeKey() {
+	 return stripeDevKey;
+	 }
 }
