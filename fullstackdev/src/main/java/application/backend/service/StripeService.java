@@ -40,19 +40,19 @@ public class StripeService {
             stripeCustomerId = customer.getId();
         } catch (AuthenticationException e) {
             LOG.error("An authentication exception occurred while creating the Stripe customer", e);
-            throw new StripeException();
+            throw new StripeException(e);
         } catch (InvalidRequestException e) {
             LOG.error("An invalid request exception occurred while creating the Stripe customer", e);
-            throw new StripeException();
+            throw new StripeException(e);
         } catch (APIConnectionException e) {
             LOG.error("An API connection exception occurred while creating the Stripe customer", e);
-            throw new StripeException();
+            throw new StripeException(e);
         } catch (CardException e) {
             LOG.error("A Credit Card exception occurred while creating the Stripe customer", e);
-            throw new StripeException();
+            throw new StripeException(e);
         } catch (APIException e) {
             LOG.error("An API exception occurred while creating the Stripe customer", e);
-            throw new StripeException();
+            throw new StripeException(e);
         }
         return stripeCustomerId;
     }

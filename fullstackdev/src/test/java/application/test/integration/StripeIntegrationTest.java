@@ -56,22 +56,22 @@ public class StripeIntegrationTest {
 	public void createStripeCustomer() throws Exception {
 
 		Map<String, Object> tokenParams = new HashMap<String, Object>();
-		Map<String, Object> cardParams = new HashMap<String, Object>();
-		cardParams.put(StripeUtils.STRIPE_CARD_NUMBER_KEY, TEST_CC_NUMBER);
-		cardParams.put(StripeUtils.STRIPE_EXPIRY_MONTH_KEY, TEST_CC_EXP_MONTH);
-		cardParams.put(StripeUtils.STRIPE_EXPIRY_YEAR_KEY, LocalDate.now(Clock.systemUTC()).getYear() + 1);
-		cardParams.put(StripeUtils.STRIPE_CVC_KEY, TEST_CC_CVC_NBR);
-		tokenParams.put(StripeUtils.STRIPE_CARD_KEY, cardParams);
+        Map<String, Object> cardParams = new HashMap<String, Object>();
+        cardParams.put(StripeUtils.STRIPE_CARD_NUMBER_KEY, TEST_CC_NUMBER);
+        cardParams.put(StripeUtils.STRIPE_EXPIRY_MONTH_KEY, TEST_CC_EXP_MONTH);
+        cardParams.put(StripeUtils.STRIPE_EXPIRY_YEAR_KEY, LocalDate.now(Clock.systemUTC()).getYear() + 1);
+        cardParams.put(StripeUtils.STRIPE_CVC_KEY, TEST_CC_CVC_NBR);
+        tokenParams.put(StripeUtils.STRIPE_CARD_KEY, cardParams);
 
-		Map<String, Object> customerParams = new HashMap<String, Object>();
-		customerParams.put("description", "Customer for test@example.com");
-		customerParams.put("plan", PlansEnum.PRO.getId());
+        Map<String, Object> customerParams = new HashMap<String, Object>();
+        customerParams.put("description", "Customer for test@example.com");
+        customerParams.put("plan", PlansEnum.PRO.getId());
 
-		String stripeCustomerId = stripeService.createCustomer(tokenParams, customerParams);
-		assertThat(stripeCustomerId, is(notNullValue()));
+        String stripeCustomerId = stripeService.createCustomer(tokenParams, customerParams);
+        assertThat(stripeCustomerId, is(notNullValue()));
 
-		Customer cu = Customer.retrieve(stripeCustomerId);
-		cu.delete();
+        Customer cu = Customer.retrieve(stripeCustomerId);
+        cu.delete();
 
 	}
 }

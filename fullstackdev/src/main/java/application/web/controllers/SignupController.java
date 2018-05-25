@@ -1,6 +1,8 @@
 package application.web.controllers;
 
 import java.io.IOException;
+import java.time.Clock;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -18,12 +21,16 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 import org.thymeleaf.util.StringUtils;
+
+import com.stripe.exception.StripeException;
 
 import application.backend.persistence.domain.backend.Plan;
 import application.backend.persistence.domain.backend.Role;
@@ -35,6 +42,7 @@ import application.backend.service.UserService;
 import application.backend.service.s3.S3Service;
 import application.enums.PlansEnum;
 import application.enums.RolesEnum;
+import application.exceptions.S3Exception;
 import application.utils.StripeUtils;
 import application.utils.UserUtils;
 import application.web.domain.BasicAccountPayload;
@@ -71,6 +79,8 @@ public class SignupController {
 	public static final String SIGNED_UP_MESSAGE_KEY = "signedUp";
 
 	public static final String ERROR_MESSAGE_KEY = "message";
+
+	private static final String GENERIC_ERROR_VIEW_NAME = "error/genericError";
 
 	@RequestMapping(value = SIGNUP_URL_MAPPING, method = RequestMethod.GET)
 	public String signupGet(@RequestParam("planId") int planId, ModelMap model) {
@@ -187,14 +197,6 @@ public class SignupController {
 
             user.setStripeCustomerId(stripeCustomerId);
             
-            
-            
-            
-            
-            
-            
-            
-            
 			registeredUser = userService.createUser(user, PlansEnum.PRO, roles);
 			LOG.debug(payload.toString());
 		}
@@ -228,4 +230,19 @@ public class SignupController {
 		}
 
 	}
+	
+	@ExceptionHandler({StripeException.class, S3Exception.class})
+    public ModelAndView signupException(HttpServletRequest request, Exception exception) {
+
+        LOG.error("Request {} raised exception {}", request.getRequestURL(), exception);
+
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("exception", exception);
+        mav.addObject("url", request.getRequestURL());
+        mav.addObject("timestamp", LocalDate.now(Clock.systemUTC()));
+        mav.setViewName(GENERIC_ERROR_VIEW_NAME);
+        return mav;
+    }
+
+	
 }
