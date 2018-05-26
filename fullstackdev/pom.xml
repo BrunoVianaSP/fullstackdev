@@ -97,6 +97,11 @@
 			<artifactId>h2</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
 		<!-- Logging Dependencies -->
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -109,8 +114,6 @@
 			<artifactId>gson</artifactId>
 		</dependency>
 
-		<!-- <dependency> <groupId>uk.co.jemos.podam</groupId> <artifactId>podam</artifactId> 
-			<version>3.4.0.RELEASE</version> <scope>test</scope> </dependency> -->
 
 		<dependency>
 			<groupId>uk.co.jemos.podam</groupId>

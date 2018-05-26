@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import application.backend.persistence.domain.backend.User;
 
 @Repository
-// @Transactional(dontRollbackOn = true)
 public interface UserRepository extends CrudRepository<User, Long> {
 
 	User findByUsername(String username);
