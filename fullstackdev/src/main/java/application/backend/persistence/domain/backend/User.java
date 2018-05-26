@@ -31,7 +31,8 @@ public class User implements Serializable, UserDetails {
 	}
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+//	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue
 	private long id;
 
 	@Column(unique = true)
